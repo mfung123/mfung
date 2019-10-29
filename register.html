@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title> Join Us </title>
+</head>
+<p align = "center"><img src = "Logo.png" height = "250" width = "250"></p>
+<link rel = "Stylesheet" type = "Text/css" href = "register.css" /> </link>
+<body style="background-color:#ffb7c5"> 
+<p><a href = "Crispy.html"><font color = "White"> Home </font></a></p>
+<a><h4><font color = "White"> Create an Account </font></h4></a><br/>
+<hr color = "White">
+<form name = "Create" method="POST" action="register.php">
+<table>
+<tr>
+	<td><label for = "Name"><font color = "White"> Create a fairly account name </font></label></td>
+</tr>
+
+<tr>
+	<td><input type = "Text" name = "username" id = "Name" size = "100"></td>
+</tr>
+</table>
+
+<hr color = "White">
+<table>	
+<tr>
+	<td><label for = "Password"><font color = "White"> Choose Your Password </font></label></td>
+</tr>
+
+<tr>
+	<td><input type = "Text" name = "password" id = "Password" size = "100"></td>
+</tr>
+
+<tr>
+	<td><label for = "Pass"><font color = "White"> Re-enter password </font></label></td>
+</tr>
+
+<tr>
+	<td><input type = "Text" name = "cpassword" id = "Pass" size = "100"></td>
+</tr>
+</table>
+
+<hr color = "White">
+<table>
+<tr>
+	<td><label for = "Email"><font color = "White"> Your current email address </font></label></td>
+</tr>
+
+<tr>
+	<td><input type = "Text" name = "email" id = "Email" size = "100" placeholder = "example123@gmail.com"></td>
+	<td><font color = "White"> Your email address is used to confirm purchases and help you manage access to your Crispy account. </font></td>
+</tr>
+
+<tr>
+	<td><label for = "Mail"><font color = "White"> Re-enter email address </font></label></td>
+</tr>
+
+<tr>
+	<td><input type = "Text" name = "Mail" id = "Mail" size = "100" placeholder = "example123@gmail.com"></td>
+	<td><font color = "White"> Florist will send a confirmation email to this account. Please follow the link in the mail to verify your email account with florist. </font></td>
+</tr>
+</table>
+
+<hr color = "White">
+<table>
+<tr>
+	<td><input type = "Radio" name = "Agree" id = "Agree" value = "I agree AND am 13 years of age or older">
+	<font color = "White"><label for = "Agree"> I agree I am 13 years of age or older </label></font>
+</tr>
+</table>
+
+<table>
+<tr align = "Right">
+	<td><button name = "button" id = "Continue" value = "Continue" type="submit"> Continue </button>
+	</td>
+</tr>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+<?php
+    if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email']) ){
+        if(($_POST['username'] !="") && ($_POST['password']!="") && ($_POST['cpassword']!="") && ($_POST['email']!="") ){
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $cpassword = $_POST['cpassword'];
+            $email = $_POST['email'];
+			$cemail = $_POST['cemail'];
+           
+            $con=mysqli_connect("localhost","root","","fairyflorist");
+            if (mysqli_connect_errno())     //Check connection
+            {
+                echo "Failed to connect to MySQL: " . mysqli_connect_errno();
+            }
+
+            if($password != $cpassword){
+
+            echo "<script>alert('Your password does not match ! Please try again! ')</script>";
+        exit;
+
+            }
+ if($email != $cemail){
+
+            echo "<script>alert('Your email does not match ! Please try again! ')</script>";
+        exit;
+
+            }
+
+            $sql= "SELECT * FROM register WHERE username='$username' OR email='$email' LIMIT 1";
+            $result = mysqli_query($con, $sql);
+            $user = mysqli_fetch_assoc($result);
+      
+            if ($user) {
+                if ($user['username'] === $username) {
+                    echo "<script>alert('Username already exists ! Please try again! ')</script>";
+        exit;
+            }
+
+            if ($user['email'] === $email) {
+               echo "<script>alert('Email already exists ! Please try again! ')</script>";
+        exit;
+            }
+        }
+
+
+
+            $sql="INSERT INTO register (username, password, email)VALUES('$username','$password','$email')";
+
+            if (!mysqli_query($con,$sql))
+            {
+                die('Error: ' . mysqli_error($con));
+            }
+
+            echo "<script> window.location.assign('login.php'); </script>";
+            
+        }else{
+
+           echo "<script>alert('Please fill in all of the data first before register!')</script>";
+        exit;
+
+        }
+  }
+?>

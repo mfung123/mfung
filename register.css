@@ -1,0 +1,31 @@
+@import url(https://fonts.googleapis.com/css?family=Fjalla+One);
+
+body {
+  padding: 3em;
+}
+a {
+  color: black;
+  font: bold 4em/1.0 'Fjalla One', sans-serif;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-transition: .2s;
+}
+a:hover {
+  color: hotPink;
+}
+@media (-webkit-min-device-pixel-ratio:0) {
+  a {
+    background-color: 	#FFE4E1;
+    background-image: -webkit-linear-gradient(left, hotPink 0%, orange 50%, transparent 50%);
+    background-position: 100% 0;
+    background-size: 200% 200%;
+    color: transparent;
+    -webkit-transition: .1s .2s;
+    -webkit-background-clip: text;
+  }
+  a:hover {
+    background-position: 0 0;
+    color: transparent;
+    transition: .4s 0;
+  }
+}
