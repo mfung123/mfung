@@ -11,7 +11,7 @@ Nothing
 </head>
 <body style="background-color:#ffb7c5"> 
 <link rel = "Stylesheet" type = "Text/css" href = "word.css" /> </link>
-<p align = "Center"><img src = "picture/Logo.png" height = "250" width = "250"></p>
+<p align = "Center"><img src = "Logo.png" height = "250" width = "250"></p>
 <br>
 <link rel="Stylesheet" type="Text/css" href="pinkbg.css" /> </link>
 <ul>
